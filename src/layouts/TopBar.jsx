@@ -1,11 +1,13 @@
 import Input from "../components/ui/Input";
 import { BsSearch, BsBell, BsPersonCircle } from "react-icons/bs";
+import HomePage from "../pages/homePage";
 
 export default function TopBar() {
   return (
+    <div className="w-100 d-flex flex-column justify-content-between" style={{height: '100vh'}}>
     <div
       className="d-flex flex-row justify-content-between align-items-start gap-5 p-4 bg-white rounded-end"
-      style={{ height: "100vh", width: "100%" }}
+      style={{height: '100vh', width: "100%" }}
     >
       {/* Search */}
       <div className="input-group w-50">
@@ -29,6 +31,9 @@ export default function TopBar() {
           <BsPersonCircle />
         </span>
       </div>
+    </div>
+    <HomePage></HomePage>
+
     </div>
   );
 }
