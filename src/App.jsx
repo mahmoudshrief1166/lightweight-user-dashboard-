@@ -1,15 +1,16 @@
-import { useState } from 'react'
-import './App.css'
-import SideBar from './layouts/SideBar'
+// import "./App.css";
+import SideBar from "./layouts/SideBar";
+import TopBar from "./layouts/TopBar";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-    <SideBar></SideBar>
+      <div className="d-flex flex-row p-5 mx-auto">
+        <SideBar></SideBar>
+        <TopBar></TopBar>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
