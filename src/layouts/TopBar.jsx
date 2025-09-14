@@ -4,9 +4,9 @@ import HomePage from "../pages/homePage";
 
 export default function TopBar() {
   return (
-    <div className="w-100 d-flex flex-column justify-content-between" style={{height: '100vh'}}>
+    <div className="w-100 d-flex flex-column gap-3" style={{height: '100vh'}}>
     <div
-      className="d-flex flex-row justify-content-between align-items-start gap-5 p-4 bg-white rounded-end"
+      className="d-flex flex-row justify-content-between align-items-start gap-5 p-4 bg-light-subtle rounded-end"
       style={{height: '100vh', width: "100%" }}
     >
       {/* Search */}
@@ -17,8 +17,6 @@ export default function TopBar() {
         <Input
           type="search"
           placeholder="Search..."
-          className="form-control form-control-md bg-body-secondary"
-          style={{fontSize: "1.2rem" }}
         />
       </div>
 

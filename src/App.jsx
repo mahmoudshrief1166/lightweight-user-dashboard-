@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import SideBar from "./layouts/SideBar";
 import TopBar from "./layouts/TopBar";
 import {store} from "./redux/store";
+import ModalPage from "./pages/ModalPage";
 
 function App() {
   return (
