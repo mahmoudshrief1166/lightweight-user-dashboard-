@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../redux/modalSlice";
 import { addNewUser } from "../redux/userSlice";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function ModalPage() {
   const isModelOpen = useSelector((state) => state.modal.isModelOpen);
@@ -29,53 +30,56 @@ export default function ModalPage() {
     dispatch(addNewUser(formData));
     setFormData({ name: "", username: "", email: "" });
     dispatch(closeModal());
+    toast.success("New user added successfully!");
   };
   return (
-    <Modal
-      title="Add User"
-      isOpen={isModelOpen}
-      onClose={handleCloseModal}
-      onSave={handleSaveChanges}
-    >
-      <form>
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">
-            Name
-          </label>
-          <Input
-            name="name"
-            type="text"
-            placeholder="Enter name"
-            value={formData.name}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="username" className="form-label">
-            Username
-          </label>
+      <Modal
+        title="Add User"
+        isOpen={isModelOpen}
+        onClose={handleCloseModal}
+        onSave={handleSaveChanges}
+      >
+        <form>
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">
+              Name
+            </label>
+            <Input
+              name="name"
+              type="text"
+              placeholder="Enter name"
+              value={formData.name}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="username" className="form-label">
+              Username
+            </label>
 
-          <Input
-            name="username"
-            type="text"
-            placeholder="User name"
-            value={formData.username}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          <Input
-            name="email"
-            type="email"
-            placeholder="Enter email"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
-        </div>
-      </form>
-    </Modal>
+            <Input
+              name="username"
+              type="text"
+              placeholder="User name"
+              value={formData.username}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">
+              Email
+            </label>
+            <Input
+              name="email"
+              type="email"
+              placeholder="Enter email"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </div>
+        </form>
+      </Modal>
+
+
   );
 }

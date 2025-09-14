@@ -4,27 +4,50 @@ import { useEffect } from "react";
 import { fetchUserData, setCurrentPage } from "../../redux/userSlice";
 import { openModal } from "../../redux/modalSlice";
 import ModalPage from "../../pages/AddModalPage";
+import { toast } from "react-toastify";
 
 export default function HomeComponent() {
-  const { users, loading, error, currentPage, pageSize, total } =
-    useSelector((state) => state.users);
+  const { users, loading, error, currentPage, pageSize, total } = useSelector(
+    (state) => state.users
+  );
+
+  const searchTerm = useSelector((state) => state.search.searchTerm);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUserData({ page: currentPage, limit: pageSize }));
+    dispatch(fetchUserData({ page: currentPage, limit: pageSize }))
+      .unwrap()
+      .then(() => {
+        // Successfully fetched user data
+        toast.success("User data fetched successfully!");
+      })
+      .catch(() => {
+        // Error fetching user data
+        toast.error("Failed to fetch user data.");
+      });
   }, [dispatch, currentPage, pageSize]);
 
   const handleOpenModal = () => {
     dispatch(openModal());
   };
 
+  const filteredUsers = users.filter((user) => {
+    return (
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
+
   const totalPages = Math.ceil(total / pageSize);
 
   // Loading state
   if (loading) {
     return (
-      <div className="d-flex justify-content-center align-items-center bg-light-subtle" style={{ height: "100vh" }}>
+      <div
+        className="d-flex justify-content-center align-items-center bg-light-subtle"
+        style={{ height: "100vh" }}
+      >
         <div className="spinner-border text-dark" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
@@ -64,13 +87,21 @@ export default function HomeComponent() {
             </tr>
           </thead>
           <tbody className="text-center">
-            {users.map((user) => (
-              <tr key={user.id}>
-                <td className="fw-semibold">{user.name}</td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
+            {filteredUsers.length > 0 ? (
+              filteredUsers.map((user) => (
+                <tr key={user.id}>
+                  <td className="fw-semibold">{user.name}</td>
+                  <td>{user.username}</td>
+                  <td>{user.email}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="3" className="text-center">
+                  No users found
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </DataTable>
       </div>
@@ -85,17 +116,19 @@ export default function HomeComponent() {
           ◀
         </button>
 
-        {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-          <button
-            key={page}
-            onClick={() => dispatch(setCurrentPage(page))}
-            className={`btn btn-sm rounded-circle ${
-              currentPage === page ? "btn-dark" : "btn-outline-dark"
-            }`}
-          >
-            {page}
-          </button>
-        ))}
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+          (page) => (
+            <button
+              key={page}
+              onClick={() => dispatch(setCurrentPage(page))}
+              className={`btn btn-sm rounded-circle ${
+                currentPage === page ? "btn-dark" : "btn-outline-dark"
+              }`}
+            >
+              {page}
+            </button>
+          )
+        )}
 
         <button
           disabled={currentPage === totalPages}
