@@ -41,7 +41,6 @@ src/
 ## Installation
 
 1- Clone the repository:
-bash
 git clone https://github.com/mahmoudshrief1166/lightweight-user-dashboard-.git
 cd users-dashboard
 2- Install dependencies:
