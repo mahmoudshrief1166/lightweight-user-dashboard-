@@ -10,20 +10,16 @@ export default function HomeComponent() {
   const { users, loading, error, currentPage, pageSize, total } = useSelector(
     (state) => state.users
   );
-
   const searchTerm = useSelector((state) => state.search.searchTerm);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchUserData({ page: currentPage, limit: pageSize }))
       .unwrap()
       .then(() => {
-        // Successfully fetched user data
         toast.success("User data fetched successfully!");
       })
       .catch(() => {
-        // Error fetching user data
         toast.error("Failed to fetch user data.");
       });
   }, [dispatch, currentPage, pageSize]);
@@ -46,7 +42,7 @@ export default function HomeComponent() {
     return (
       <div
         className="d-flex justify-content-center align-items-center bg-light-subtle"
-        style={{ height: "100vh" }}
+        style={{ height: "100vh"}}
       >
         <div className="spinner-border text-dark" role="status">
           <span className="visually-hidden">Loading...</span>
@@ -58,56 +54,72 @@ export default function HomeComponent() {
   // Error state
   if (error) {
     return (
-      <div className="alert alert-danger text-center" role="alert">
+      <div className="alert alert-danger text-center my-5" role="alert">
         <strong>Error:</strong> {error}
       </div>
     );
   }
 
   return (
-    <div className="mx-auto p-5 bg-light-subtle" style={{ width: "100%" }}>
+    <div className="container-fluid bg-light-subtle py-4 w-100 p-md-4 w-md-50"
+     stylye={{with: "100%"}}>
       {/* Header */}
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1 className="fw-bold text-dark"> Team Members</h1>
-        <div className="d-flex gap-2">
-          <button onClick={handleOpenModal} className="btn btn-outline-dark">
+      <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-1 gap-md-3">
+        <h2 className="fw-bold text-dark m-0 text-center text-md-start fs-5 fs-md-3">
+          Team Members
+        </h2>
+        <div className="d-flex gap-1 gap-md-2">
+          {/* Desktop button */}
+          <button
+            onClick={handleOpenModal}
+            className="btn btn-outline-dark d-none d-md-block btn-sm"
+          >
             Add User
+          </button>
+          {/* Mobile button */}
+          <button
+            onClick={handleOpenModal}
+            className="btn btn-dark d-md-none rounded-circle btn-sm"
+          >
+            +
           </button>
         </div>
       </div>
 
       {/* Data Table */}
-      <div className="card shadow-sm rounded-3">
-        <DataTable className="table table-hover table-striped mb-0">
-          <thead className="table-dark text-center">
-            <tr>
-              <th>Name</th>
-              <th>Username</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody className="text-center">
-            {filteredUsers.length > 0 ? (
-              filteredUsers.map((user) => (
-                <tr key={user.id}>
-                  <td className="fw-semibold">{user.name}</td>
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                </tr>
-              ))
-            ) : (
+      <div className="card shadow-sm border-0 rounded-3">
+        <div className="table-responsive">
+          <DataTable className="table table-hover table-striped mb-0 align-middle fs-6 fs-md-5">
+            <thead className="table-dark text-center">
               <tr>
-                <td colSpan="3" className="text-center">
-                  No users found
-                </td>
+                <th scope="col">Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
               </tr>
-            )}
-          </tbody>
-        </DataTable>
+            </thead>
+            <tbody className="text-center text-md-start ">
+              {filteredUsers.length > 0 ? (
+                filteredUsers.map((user) => (
+                  <tr key={user.id}>
+                    <td className="fw-semibold">{user.name}</td>
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="3" className="text-center text-muted py-4">
+                    No users found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </DataTable>
+        </div>
       </div>
 
       {/* Pagination */}
-      <div className="d-flex justify-content-center align-items-center gap-2 mt-4">
+      <div className="d-flex justify-content-center align-items-center gap-1 gap-md-2 mt-3 flex-wrap">
         <button
           disabled={currentPage === 1}
           onClick={() => dispatch(setCurrentPage(currentPage - 1))}

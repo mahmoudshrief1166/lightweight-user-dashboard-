@@ -12,10 +12,11 @@ export default function Modal({ title, isOpen, onClose, onSave,children }) {
       className="modal fade show d-block"
       tabIndex="-1"
       role="dialog"
-      style={{ background: "rgba(0,0,0,0.5)" }}
+      style={{
+         background: "rgba(0,0,0,0.5)" }}
       onClick={handleWhiteSpaceClick}
     >
-      <div className="modal-dialog modal-dialog-centered" role="document">
+      <div className="modal-dialog modal-dialog-centered" role="document" style={{maxWidth:"500px"}}>
         <div className="modal-content">
           {/* Header */}
           <div className="modal-header">
