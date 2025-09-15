@@ -18,7 +18,7 @@ It provides an interface to manage users, search, add new users, authentication 
 
 ## Tech Stack
 
-- React 18
+- React 19
 - Redux Toolkit
 - React Router DOM
 - Bootstrap 5
