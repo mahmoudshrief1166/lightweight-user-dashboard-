@@ -1,12 +1,65 @@
-# React + Vite
+# React Admin Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a fully functional Admin Dashboard built with React and Redux Toolkit, featuring a responsive design using Bootstrap 5.  
+It provides an interface to manage users, search, add new users, authentication (login/logout), and user-friendly notifications.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔐 User Authentication (Mock login/logout with LocalStorage & JWT).
+- 🔍 Real-time user search.
+- 📋 User table with pagination.
+- ➕ Add new users via modal form.
+- 🔔 Toast notifications (success/error).
+- 🎨 Responsive design for all screen sizes.
+- 🧭 Sidebar navigation (Home, Users, Settings).
+- 📌 Simple and clean UI.
+-     Fetch and display data from a free REST API (JSONPlaceholder)
+    EndPoint: https://jsonplaceholder.typicode.com/users
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React 18
+- Redux Toolkit
+- React Router DOM
+- Bootstrap 5
+- React Icons
+- React Toastify
+
+## 📂 Project Structure
+
+src/
+├── components/
+│ └── ui/ # UI components (Input, DataTable, Modal,Buttons)
+└── pageComponent/ # Pages components (homeComponent)
+
+├── layouts/ # Layouts (Sidebar, Topbar, Footer)
+├── pages/ # App pages (Authentcation,Layout,HomePage, AddModalPage)
+├── redux/ # Redux slices (authSlice, userSlice, searchSlice, modalSlice,store)
+├── App.js
+└── index.js
+
+## Installation
+
+1- Clone the repository:
+bash
+git clone https://github.com/mahmoudshrief1166/lightweight-user-dashboard-.git
+cd users-dashboard
+2- Install dependencies:
+npm install
+3- Run the project:
+npm run dev
+
+## Usage
+
+Open http://localhost:port
+in your browser.
+
+Log in (Token stored in LocalStorage) (name = admin && password = 123).
+Try searching for a user in the TopBar.
+Add a new user with the Add User button.
+
+## Author
+
+Mahmoud Shrief
+GitHub: https://github.com/mahmoudshrief1166
+LinkedIn: https://www.linkedin.com/in/mahmoud-shrief1166
